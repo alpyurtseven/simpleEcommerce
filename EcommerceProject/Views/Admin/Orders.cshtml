@@ -1,0 +1,76 @@
+﻿@model List<Order>
+@if (Model == null)
+{
+
+
+    <div class="row justify-content-center">
+        <div class="col-6 mb-5 justtify-content-center">
+            <div class="h-500">
+                <!-- Product image-->
+                <img class="card-img-top" src="https://www.shoreexcursioneer.com/mobile/images/mini-empty-cart.png"
+                     alt="Boş Sepet" />
+                <!-- Product details-->
+            </div>
+            <br />
+            <div class="justify-content-center text-center">
+                <h1>Sepetinizde ürün bulunmuyor</h1>
+                <a href="/Category/List"
+                   style="text-decoration:none; text-align:center; color:black">Alışverişe Başla</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h2>Sipariş Listesi</h2>
+    <table id="orderList" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sipariş No</th>
+                <th>Sipariş Tarihi</th>
+                <th>Sipariş Durumu</th>
+                <th>Toplam Tutar</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.OrderDate</td>
+                    <td>@(item.Status ? "Onaylandı" : "Onay Bekliyor")</td>
+                    <td>@string.Format("₺{0:N2}", item.ComputeTotalValue())</td>
+                    <td><a href="/Admin/OrderDetail/@item.OrderId" btn btn-outline-dark mt-auto>İncele</a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Sipariş No</th>
+                <th>Sipariş Tarihi</th>
+                <th>Sipariş Durumu</th>
+                <th>Toplam Tutar</th>
+                <th>İşlemler</th>
+            </tr>
+        </tfoot>
+    </table>
+}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+       new DataTable('#orderList', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json',
+            },
+        });
+    });
+</script>
+
+<style>
+
+    a,a:hover,a:active,a:visited{
+        color:black;
+        text-decoration:none;
+    }
+</style>

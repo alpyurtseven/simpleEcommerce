@@ -1,0 +1,67 @@
+﻿@model Order
+
+@if (Model != null || Model.OrderItems.Count() > 0)
+{
+    <h2>Sipariş Detayları</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Ürün Adı</th>
+                            <th>Adet</th>
+                            <th>Fiyat</th>
+                            <th>Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td class="w-25">
+                                    <img src="@item.Product.Image" class="img-fluid img-thumbnail" alt="Ürün Resmi">
+                                </td>
+                                <td>@item.Product.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>@string.Format("₺{0:N2}", item.Product.Price)</td>
+                                <td>@string.Format("₺{0:N2}", ((item.Product.Price * item.Quantity)))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-end">Toplam Tutar: @string.Format("₺{0:N2}", Model.ComputeTotalValue())</h3>
+    <br />
+    <hr />
+    <br />
+    <h1 class="text-center">Siparişini Onayla</h1>
+    <br />
+    <div>
+        <form method="post" action="/Admin/Approve">
+            <div class="form-group">
+                <input asp-for="OrderId" type="hidden" class="form-control" />
+            </div>
+            <br />
+            <button class="btn btn btn-outline-dark col-12" type="submit">Siparişi Onayla</button>
+        </form>
+    </div>
+}
+
+<style>
+    .container {
+        padding: 2rem 0rem;
+    }
+
+    h4 {
+        margin: 2rem 0rem 1rem;
+    }
+
+    td, th {
+        vertical-align: middle;
+    }
+</style>

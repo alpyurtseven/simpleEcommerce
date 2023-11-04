@@ -1,0 +1,55 @@
+﻿@model Product
+
+<h2>Ürün Düzenle</h2>
+<hr />
+<br />
+<form asp-action="Edit" asp-route-id="@Model.ProductId">
+    <input asp-for="ProductId" class="form-control" type="hidden" value="@Model.ProductId"/>
+    <div class="form-group">
+        <label asp-for="Name">Ürün Adı</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Ürün Görseli</label>
+        <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Ürün Açıklaması</label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Ürün Satış Fiyatı</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OriginalPrice">Ürün Fiyatı</label>
+        <input asp-for="OriginalPrice" class="form-control" />
+        <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StockQuantity">Stok Miktarı</label>
+        <input asp-for="StockQuantity" class="form-control" />
+        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Kategori</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+            <option value="">Seçiniz</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <hr />
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+    </div>
+</form>
+<style>
+    .form-group {
+        padding: .75rem;
+    }
+</style>

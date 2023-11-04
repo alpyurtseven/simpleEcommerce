@@ -1,0 +1,22 @@
+﻿@model Login
+
+<h1>Giriş Yap</h1>
+<br />
+<hr />
+<br />
+
+<form asp-action="Login" asp-controller="Admin" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="UserName">Kullanıcı Adı</label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+    </div>
+    <br />
+    <hr />
+    <br />
+    <button type="submit" class="btn btn-outline-dark mt-auto">Giriş Yap</button>
+</form>

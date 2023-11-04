@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Ürünleri Düzenle";
+}
+
+<a asp-controller="Product" asp-action="Create" class="btn btn-outline-dark mt-auto col-12">Yeni Ürün Ekle</a>
+<br />
+<br />
+<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    @foreach (var product in Model)
+    {
+        <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.ProductId">
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="@product.Image" alt="@product.Name" style="height:auto" />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">@product.Name</h5>
+                            <!-- Product price-->
+                            @if (product.OriginalPrice > product.Price)
+                            {
+                                <del>@string.Format("₺{0:N2}", product.Price)</del> @string.Format("₺{0:N2}",
+                                                                                   product.Price)
+                            }
+                            else
+                            {
+                                @string.Format("₺{0:N2}", product.Price)
+                            }
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent justify-content-center">
+                        <form method="get" asp-controller="Product" asp-action="Details"
+                              asp-route-id="@product.ProductId" class="text-center">
+                            <button type="submit" class="btn btn-outline-dark mt-auto col-12">İncele</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+
+</div>
+
+<style>
+    h5 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    a, a:hover, a:visited, a:active {
+        color: black;
+        text-decoration: none;
+    }
+</style>

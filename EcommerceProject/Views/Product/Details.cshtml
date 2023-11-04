@@ -1,0 +1,42 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Ürün Detay";
+}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Model.Image" alt="@Model.Name" /></div>
+            <div class="col-md-6">
+                <div class="small mb-1">SKU: @Model.ProductId</div>
+                @if (User.IsInRole("Admin"))
+                {
+                 <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.ProductId"
+                    class="btn btn-outline-dark mt-auto col-12">Ürün Bilgilerini Güncelle</a>
+                }
+                <h1 class="display-5 fw-bolder">@Model.Name</h1>
+                @if (Model.OriginalPrice > Model.Price)
+                {
+                    <div class="fs-5 mb-5">
+                        <span class="text-decoration-line-through">@string.Format("₺{0:N2}",
+                                                                  Model.OriginalPrice)</span>
+                        <span>@string.Format("₺{0:N2}", Model.Price)</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="fs-5 mb-5">
+                        <span>@string.Format("₺{0:N2}", Model.Price)</span>
+                    </div>
+                }
+                <p class="lead">@Model.Description</p>
+                <div class="d-flex">
+                    <form method="post" asp-controller="Order" asp-action="AddToOrder"
+                          asp-route-productId="@Model.ProductId">
+                        <button type="submit" class="btn btn-outline-dark mt-auto">Sepete Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
